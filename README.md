@@ -1,73 +1,142 @@
-Zomato Bangalore - EDA, Geospatial Insights, and Predictions
+# Zomato Bangalore Data Analysis and Location Intelligence
 
-Overview
+This project is a complete data analysis and visualization workflow on the Bangalore Zomato dataset. It combines exploratory data analysis (EDA), feature engineering, geospatial mapping, and machine learning-ready preprocessing.
 
-This project performs Exploratory Data Analysis (EDA) and geospatial visualization on the Zomato Bangalore dataset to analyze restaurant distribution, popularity, and customer preferences. Using GeoPandas, we mapped high-density restaurant areas and customer hotspots. Additionally, we developed an interactive heatmap and a predictive model using Optuna to estimate restaurant ratings.
+A key part of the work was geocoding restaurant addresses to latitude/longitude, and this geocoding task was handled by me directly to build location-based insights.
 
-Key Features
+## Project Highlights
 
-Data Preprocessing:
+- Performed end-to-end analysis on 51,717 restaurant records.
+- Built cleaned and transformed datasets for downstream analysis.
+- Generated location intelligence outputs using geocoded address data.
+- Created map-based and statistical visualizations.
+- Prepared encoded data for modeling and ML experiments.
 
- - Handled null values and outliers to clean the dataset.
- - Extracted latitude and longitude from addresses using geocoding for geospatial visualization.
+## Dataset and Processed Files
 
-Geospatial Analysis:
+### Raw source
 
- - Used Folium to create interactive maps to visualize hotspots of restaurants.
- - GeoPandas played a crucial role in exploring geographical distributions.
+- zomato.csv (51,717 rows)
+  - Main raw dataset with restaurant info such as name, location, cuisines, pricing, ratings, and votes.
 
-Data Visualization:
+### Intermediate and final analytical datasets
 
- - Implemented various charts and graphs to extract meaningful insights from the dataset.
- - Chose visualizations that best fit the dataset to make strong inferences.
+- address_zomato.csv (9,499 rows)
+  - Cleaned address-focused subset for geocoding.
+- addresses_with_coordinates.csv (9,499 rows)
+  - Address-level data enriched with latitude and longitude.
+- zomato_locations.csv (92 rows)
+  - Aggregated/normalized location-level data.
+- df_le.csv (41,263 rows)
+  - Label-encoded dataset used for machine learning and correlation/model workflows.
 
-Machine Learning Model
+## Notebooks and Their Roles
 
- - Regression Model: Predicts the rating of a particular restaurant.
+- zomato_part1.ipynb
+  - Core EDA, visual analytics, location analysis, and mapping workflows.
+  - Includes geocoding logic and location data export steps.
+- zomato_part2.ipynb
+  - Feature engineering and modeling preparation.
+  - Includes label encoding, correlation analysis, and classifier setup.
+- geocoding.ipynb
+  - Focused notebook for geocoding address data.
+- zomato_backup.ipynb
+  - Extended backup version containing additional exploratory and mapping experiments.
 
-Feature Engineering:
+## Python Packages Used
 
- - Converted necessary categorical columns into numeric values.
- - Applied StandardScaler for feature scaling.
- - Feature Selection: Used Lasso Regression to select important features.
+This project uses multiple Python libraries commonly used in data analysis and geospatial workflows:
 
-Model Optimization:
+- Data handling: pandas, numpy
+- Visualization: matplotlib, seaborn, plotly, squarify
+- Geospatial mapping: folium, folium.plugins (HeatMap, FastMarkerCluster)
+- Geocoding: geopy (Nominatim, timeout handling)
+- Machine learning: scikit-learn
+  - LabelEncoder
+  - RandomForestClassifier
+  - train_test_split
+  - TfidfVectorizer
+  - TSNE
 
- - Implemented Optuna for hyperparameter tuning.
- - Used Random Forest and XGBoost models.
+## Geocoding Contribution
 
-Performance: Achieved an R² score of 0.9259.
+Geocoding was a major custom step in this project and was done manually by me to obtain restaurant coordinates.
 
-Technologies & Libraries Used
+What was done:
 
- - Python
- - Pandas, NumPy (Data preprocessing)
- - Matplotlib, Seaborn (Visualization)
- - GeoPandas, Folium (Geospatial analysis)
- - Scikit-learn (ML modeling & preprocessing)
- - Optuna (Hyperparameter tuning)
- - XGBoost, Random Forest (Machine Learning models)
+- Extracted and cleaned address-level records.
+- Geocoded addresses using geopy + Nominatim.
+- Managed null/missing or timeout-prone results during lookup.
+- Stored final latitude/longitude outputs in addresses_with_coordinates.csv.
+- Used the coordinates for map visualizations and location insights.
 
-Geospatial Analysis:
+## Key Results and Visual Outputs
 
- - Identified key restaurant hotspots in Bangalore.
- - Interactive maps helped locate high-density areas.
+### 1) Bubble Map
 
-Machine Learning Model:
+Restaurant distribution and intensity by location.
 
- - Achieved high accuracy with an R² score of 0.9259.
- - XGBoost and Random Forest performed well after hyperparameter tuning.
+![Bubble Map](bubble_map.png)
 
-Future Improvements
+### 2) Cluster Plot on Map
 
- - Enhance dataset by incorporating real-time reviews.
- - Deploy the model as an API for real-time rating prediction.
- - Experiment with deep learning models for better accuracy.
+Spatial grouping pattern of restaurants across Bangalore.
 
-Contributing
+![Cluster Plot](cluster_plot.png)
 
-Feel free to fork the repository and submit pull requests to improve the project!
+### 3) Heatmap
 
-License
+High-density restaurant activity zones.
 
-This project is open-source and available under the MIT License.
+![Heatmap](heatmap.png)
+
+### 4) Scatter Plot on Map
+
+Point-based spatial spread and concentration.
+
+![Scatter Plot on Map](scatter_plot_on_map.png)
+
+### Interactive output
+
+- bubble_map.html provides an interactive map view.
+
+## Typical Workflow
+
+1. Load raw data from zomato.csv.
+2. Clean and prepare address/location-level subsets.
+3. Geocode address records to generate latitude/longitude.
+4. Build map-based spatial visualizations.
+5. Run EDA and feature analysis.
+6. Encode features and prepare ML-ready data in df_le.csv.
+
+## How to Run
+
+1. Install dependencies:
+
+```bash
+pip install pandas numpy matplotlib seaborn plotly folium geopy scikit-learn squarify jupyter
+```
+
+2. Open notebooks in Jupyter:
+
+```bash
+jupyter notebook
+```
+
+3. Run in recommended order:
+
+- zomato_part1.ipynb
+- geocoding.ipynb
+- zomato_part2.ipynb
+
+## Project Outcome
+
+This project demonstrates practical data analyst skills across:
+
+- Data cleaning and transformation
+- Visual storytelling and dashboard-style plotting
+- Geospatial enrichment through geocoding
+- Spatial analysis and map-based insights
+- ML preprocessing and feature engineering
+
+It is a complete analyst portfolio-style case showing how raw restaurant data can be transformed into business and location intelligence.
